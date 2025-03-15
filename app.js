@@ -10,19 +10,19 @@ class Pokemon {
 const API_URL = 'https://pokeapi.co/api/v2/pokemon?limit=150';
 let allPokemon = [];
 
-// Elementos del DOM
+
 const searchInput = document.getElementById('search');
 const pokemonList = document.getElementById('pokemon-list');
 const totalElement = document.getElementById('total');
 
-// Cargar datos iniciales
+
 const fetchPokemonData = async () => {
     try {
-        // Obtener lista básica
+
         const response = await fetch(API_URL);
         const { results } = await response.json();
         
-        // Obtener detalles completos
+
         const detailedPokemon = await Promise.all(
             results.map(async (pokemon) => {
                 const response = await fetch(pokemon.url);
@@ -46,7 +46,7 @@ const fetchPokemonData = async () => {
     }
 };
 
-// Renderizar tarjetas
+
 const renderPokemon = (pokemons) => {
     pokemonList.innerHTML = pokemons.map(pokemon => `
         <div class="pokemon-card">
@@ -67,12 +67,12 @@ const renderPokemon = (pokemons) => {
     `).join('');
 };
 
-// Actualizar contador
+
 const updateTotal = (count) => {
     totalElement.textContent = `Mostrando ${count} Pokémon`;
 };
 
-// Filtrado
+
 const filterPokemon = (searchTerm) => {
     const filtered = allPokemon.filter(pokemon => 
         pokemon.name.toLowerCase().includes(searchTerm) ||
@@ -82,12 +82,11 @@ const filterPokemon = (searchTerm) => {
     updateTotal(filtered.length);
 };
 
-// Event listeners
 searchInput.addEventListener('input', (e) => {
     filterPokemon(e.target.value.toLowerCase());
 });
 
-// Inicialización
+
 fetchPokemonData();
 
   
